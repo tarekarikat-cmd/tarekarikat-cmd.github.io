@@ -19,6 +19,7 @@ ul { padding-left: 22px; }
 .date { color: var(--muted); margin-bottom: 24px; }
 a { color: var(--accent); }
 .note { border-left: 3px solid var(--accent); padding: 8px 0 8px 14px; }
+.copy { margin-left: 6px; padding: 1px 10px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--accent); font-family: inherit; font-size: 14px; line-height: 1.5; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -112,5 +113,29 @@ a { color: var(--accent); }
 <h2>Contact</h2>
 <p>Questions about this policy: <a href="mailto:support@phai.co">support@phai.co</a>.</p>
 
+<script>
+// Adds a "Copy" button after each email address, for devices with no mail app set up. The page text is unchanged.
+(function () {
+  var links = document.querySelectorAll('a[href^="mailto:"]');
+  Array.prototype.forEach.call(links, function (a) {
+    var addr = a.getAttribute('href').slice(7);
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'copy'; b.textContent = 'Copy';
+    b.setAttribute('aria-label', 'Copy the address ' + addr);
+    b.addEventListener('click', function () {
+      var show = function (t) { b.textContent = t; setTimeout(function () { b.textContent = 'Copy'; }, 2000); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(a);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+        show(ok ? 'Copied' : 'Address selected');
+      };
+      if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(addr).then(function () { show('Copied'); }, fallback); }
+      else { fallback(); }
+    });
+    a.insertAdjacentElement('afterend', b);
+  });
+})();
+</script>
 </body>
 </html>
