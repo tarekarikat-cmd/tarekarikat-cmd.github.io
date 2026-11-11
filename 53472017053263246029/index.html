@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHAI · Coming 2027</title>
+<meta name="description" content="A next-generation 3D facial simulation platform for surgeons. Coming 2027.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#8B99AB">
+<link rel="preload" href="fonts/InstrumentSerif-Regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Jost-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Layout: one steel-light screen, as in the site design: headline and glass card on the left, the face animation on the right (full screen on phones), a slim footer below. */
+  @font-face{font-family:"Instrument Serif";src:url("fonts/InstrumentSerif-Regular-latin.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Jost";src:url("fonts/Jost-latin-var.woff2") format("woff2");font-weight:300 400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  :root{
+    color-scheme:light;
+    --field-top:#8B99AB; --field-mid:#98A6B6; --field:#9AA8B8; --foot:rgba(139,153,171,.9);
+    --white:#FFFFFF; --paper:#F6F9FD; --grey:#E6EBF1; --shade:rgba(30,35,40,1);
+    --serif:"Instrument Serif","Iowan Old Style","Palatino Linotype",Georgia,serif;
+    --sans:"Jost","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+    --gutter:clamp(20px,5vw,72px); --max:1320px; --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--field);color:var(--white);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.6;overflow-x:hidden}
+  body::after{content:"";position:fixed;inset:-10%;pointer-events:none;z-index:60;opacity:.055;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size:220px 220px}
+  h1,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:1.5px solid var(--white);outline-offset:4px;border-radius:2px}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+  .kicker{font-weight:400;font-size:12px;letter-spacing:.26em;text-transform:uppercase}
+
+  /* nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;color:var(--white)}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:22px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .wordmark{font-weight:400;font-size:22px;letter-spacing:.38em;text-indent:.38em;line-height:1}
+  .tag{border:1px solid rgba(255,255,255,.85);border-radius:999px;padding:6px 12px 5px;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;
+    background:rgba(30,35,40,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .nav::before{content:"";position:absolute;left:0;right:0;top:0;height:calc(100% + 26px);z-index:-1;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);
+    background:linear-gradient(180deg,rgba(154,168,184,.82) 0%,rgba(154,168,184,.5) 55%,rgba(154,168,184,0) 100%);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    -webkit-mask-image:linear-gradient(180deg,#000 45%,transparent 100%);mask-image:linear-gradient(180deg,#000 45%,transparent 100%)}
+  body.is-past .nav::before{opacity:1}
+
+  /* hero */
+  .hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;
+    background:linear-gradient(180deg,var(--field-top) 0%,var(--field-mid) 45%,var(--field) 100%)}
+  .plate{position:absolute;inset:-6%;background:url("media/hero_plate.avif") center/cover no-repeat;filter:blur(28px) saturate(1.02);transform:scale(1.06)}
+  .arc{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .arc img{position:absolute;left:-2%;top:-4%;width:104%;height:112%;max-width:none;object-fit:fill;opacity:.5;transform:skewY(-3.5deg);transform-origin:50% 55%;
+    -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 12%,#000 82%,rgba(0,0,0,0) 100%);
+    mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 12%,#000 82%,rgba(0,0,0,0) 100%)}
+  .rings{position:absolute;pointer-events:none;opacity:.9;width:150vh;height:150vh;left:calc(70% - 75vh);top:calc(46% - 75vh);width:150svh;height:150svh;left:calc(70% - 75svh);top:calc(46% - 75svh)}
+  .rings circle{fill:none;stroke:var(--paper);vector-effect:non-scaling-stroke}
+  .rings .r1{stroke-width:1.2;stroke-opacity:.5}
+  .rings .r2{stroke-width:1;stroke-opacity:.26}
+  .rings .r3{stroke-width:1;stroke-opacity:.15;stroke-dasharray:140 60;transform-origin:50% 50%;animation:drift 240s linear infinite}
+  .rings .r4{stroke-width:.8;stroke-opacity:.09}
+  @keyframes drift{to{transform:rotate(360deg)}}
+  .hero-inner{position:relative;height:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.15fr .9fr;align-items:center;gap:32px}
+  .hero-copy{position:relative;z-index:2;padding-top:6svh;max-width:660px;min-width:0}
+  .hero-copy .kicker{color:rgba(255,255,255,.82)}
+  .hero-copy .kicker b{font-weight:400;color:var(--white)}
+  .hero h1{font-family:var(--serif);font-weight:400;letter-spacing:-.005em;text-wrap:balance;font-size:clamp(38px,4.8vw,70px);line-height:1.04;margin:22px 0 28px;color:var(--white);max-width:20ch}
+  .glass{position:relative;max-width:320px;border-radius:30px;padding:clamp(24px,2.4vw,32px) clamp(24px,2.4vw,30px);color:var(--white);
+    background:linear-gradient(160deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,.04) 55%,rgba(255,255,255,.09) 100%);
+    -webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);
+    box-shadow:0 30px 60px rgba(30,35,40,.16),0 2px 8px rgba(30,35,40,.05)}
+  .glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+    background:linear-gradient(135deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.35) 28%,rgba(255,255,255,.14) 55%,rgba(255,255,255,.45) 80%,rgba(255,255,255,.9) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+  .glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 38%),radial-gradient(90% 60% at 100% 100%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%)}
+  .lede{position:relative;z-index:1;font-size:clamp(16px,1.2vw,18px);line-height:1.6;font-weight:400}
+  .hero-media{position:relative;justify-self:center;height:min(92vh,840px);height:min(92svh,840px);max-height:calc(100vh - 16px);max-height:calc(100svh - 16px);aspect-ratio:576/1024;max-width:100%;
+    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,#000 26%,#000 74%,rgba(0,0,0,0) 100%),linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 16%,#000 88%,rgba(0,0,0,0) 100%);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,#000 26%,#000 74%,rgba(0,0,0,0) 100%),linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 16%,#000 88%,rgba(0,0,0,0) 100%);
+    mask-composite:intersect}
+  .hero-media video{width:100%;height:100%;object-fit:cover;display:block}
+  .vbtn{position:absolute;right:var(--gutter);bottom:26px;z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(30,35,40,.26);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:grid;place-items:center;cursor:pointer;color:var(--white);opacity:.9;padding:0;transition:opacity .3s,background .3s}
+  .vbtn:hover{opacity:1;background:rgba(30,35,40,.4)}
+  .vbtn svg{width:14px;height:14px;display:block}
+  .vbtn .ic-play{display:none}
+  .vbtn.paused .ic-play{display:block}
+  .vbtn.paused .ic-pause{display:none}
+
+  /* footer */
+  footer{position:relative;border-top:1px solid rgba(255,255,255,.32);padding-block:40px 56px;background:var(--foot);font-weight:400}
+  .foot{display:grid;grid-template-columns:1fr auto;gap:24px 28px;align-items:start}
+  .foot .wordmark{font-size:18px}
+  .foot small{display:block;margin-top:20px;color:var(--grey);font-size:13px;max-width:70ch;line-height:1.6}
+  .foot-links{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+  .foot-links a{border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
+  .foot-links a:hover{color:var(--white);border-bottom-color:var(--white)}
+
+  @media (max-width:880px){
+    .nav-in{padding:16px var(--gutter)}
+    .hero-inner{display:block;padding:0}
+    .plate,.rings{display:none}
+    .hero-media{position:absolute;inset:0;justify-self:stretch;width:100%;height:100%;max-height:none;aspect-ratio:auto;-webkit-mask-image:none;mask-image:none}
+    .hero-copy{position:absolute;left:0;right:0;bottom:0;padding:90px var(--gutter) 72px;max-width:none;
+      background:linear-gradient(180deg,rgba(154,168,184,0) 0%,rgba(154,168,184,.72) 30%,rgba(154,168,184,.94) 100%)}
+    .hero h1{font-size:clamp(34px,9.5vw,46px);margin:12px 0 16px}
+    .glass{padding:18px 20px 20px;border-radius:22px;max-width:none}
+    .lede{font-size:15px}
+    .vbtn{right:12px;bottom:10px;width:42px;height:42px}
+    .foot{grid-template-columns:1fr}
+  }
+  @media (min-width:881px) and (max-height:760px){.glass{padding:20px 22px}.lede{font-size:15px}}
+  @media (prefers-reduced-motion:reduce){.rings .r3{animation:none}.nav::before{transition:none}}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="PHAI">
+  <div class="nav-in">
+    <span class="wordmark">PHAI</span>
+    <span class="tag">Coming 2027</span>
+  </div>
+</nav>
+
+<main>
+  <section class="hero" id="hero" aria-label="PHAI">
+    <div class="plate" aria-hidden="true"></div>
+    <div class="arc" aria-hidden="true"><img src="media/hero_arc.avif" alt="" width="1600" height="1564"></div>
+    <svg class="rings" viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="r1" cx="50" cy="50" r="19"/>
+      <circle class="r2" cx="50" cy="50" r="27"/>
+      <circle class="r3" cx="50" cy="50" r="36"/>
+      <circle class="r4" cx="50" cy="50" r="46"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="kicker"><b>PHAI</b> · The future of plastic surgery</p>
+        <h1>Facial simulation. Reimagined in 3D.</h1>
+        <div class="glass">
+          <p class="lede">PHAI is a next-generation 3D facial simulation platform designed to transform the way surgeons visualize, communicate, and plan facial procedures.</p>
+        </div>
+      </div>
+      <div class="hero-media" aria-hidden="true">
+        <video id="face" autoplay muted loop playsinline preload="auto" poster="media/girl_poster.avif">
+          <source src="media/girl_loop.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <button class="vbtn" id="vbtn" type="button" aria-label="Pause the animation">
+      <svg class="ic-pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="1.5" width="3" height="11" fill="currentColor"/><rect x="8.5" y="1.5" width="3" height="11" fill="currentColor"/></svg>
+      <svg class="ic-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 1.5v11l9-5.5z" fill="currentColor"/></svg>
+    </button>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="wordmark">PHAI</span>
+      <small>PHAI is a consultation visualization tool in development. It illustrates possibilities for discussion between surgeon and patient; it does not predict surgical results. © PHAI 2026.</small>
+    </div>
+    <div class="foot-links">
+      <a href="https://phai.co/privacy.html">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero = document.getElementById('hero'), body = document.body;
+
+  // Once the hero has scrolled away, a soft blur sits behind the nav so the footer never collides with it.
+  function past(){ body.classList.toggle('is-past', hero.getBoundingClientRect().bottom < 72); }
+  var ticking = false;
+  window.addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(function(){ past(); ticking = false; }); } }, {passive:true});
+  window.addEventListener('resize', past);
+  past();
+
+  // The face animation loops, with a pause button; it stays still for people who ask for less motion.
+  var v = document.getElementById('face'), vb = document.getElementById('vbtn');
+  function setPaused(p){ vb.classList.toggle('paused', p); vb.setAttribute('aria-label', p ? 'Play the animation' : 'Pause the animation'); }
+  if(reduce){ v.removeAttribute('autoplay'); v.pause(); setPaused(true); }
+  vb.addEventListener('click', function(){
+    if(v.paused){ var pr = v.play(); if(pr && pr.catch){ pr.catch(function(){ setPaused(true); }); } setPaused(false); }
+    else { v.pause(); setPaused(true); }
+  });
+  v.addEventListener('playing', function(){ setPaused(false); clearTimeout(check); });
+  var check = setTimeout(function(){ if(v.paused){ setPaused(true); } }, 1800);
+})();
+</script>
+</body>
+</html>
