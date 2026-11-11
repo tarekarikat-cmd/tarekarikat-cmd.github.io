@@ -178,6 +178,15 @@
   .signature h3{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.6vw,66px);line-height:1.02;color:var(--rim);letter-spacing:-.005em}
   .signature p{color:var(--grey);max-width:52ch}
 
+  /* inside the app: four real iPad screen recordings */
+  .band{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3vw,40px) clamp(18px,2.4vw,32px)}
+  .tile{margin:0;display:grid;gap:16px;align-content:start;min-width:0}
+  .slotpanel.ipad{aspect-ratio:1280/806}
+  .tile figcaption{display:grid;gap:6px;padding-inline:6px}
+  .tile .t{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--rim)}
+  .tile figcaption p{color:var(--grey);font-size:15px;max-width:46ch}
+  @supports not (aspect-ratio: 1 / 1){.slotpanel.ipad::before{padding-top:62.97%}}
+
   /* steps with icons */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);position:relative;margin-top:8px}
   .steps::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:rgba(255,255,255,.42)}
@@ -281,6 +290,7 @@
     .steps.verbsteps::before,.steps.verbsteps > div::before{display:none}
     .steps.verbsteps > div{padding-top:calc(var(--ico) + 22px)}
     .signature{grid-template-columns:1fr}
+    .band{grid-template-columns:1fr}
     .holo-bg{bottom:auto;height:min(120vw,560px)}
     .holo-bg img{width:150vw;left:1vw;top:calc(205px - 40vw);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 30%,#000 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 30%,#000 100%)}
     .diff{grid-template-columns:1fr}
@@ -376,6 +386,50 @@
         <p>Manipulate different areas of the face instantly and intuitively — using nothing more than your fingertips. Make changes directly on the screen with your fingers and visualize them immediately in three dimensions.</p>
       </div>
     </div></div>
+  </div>
+</section>
+
+<section class="s" id="inside">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="kicker">Inside the app</p>
+      <h2 class="serif">Real screens, recorded on iPad.</h2>
+      <p>Measuring a face, shaping a nose, placing a lift and walking the patient through it.</p>
+    </div>
+    <div class="band">
+      <figure class="tile reveal">
+        <div class="gl vidframe"><div class="slotpanel ipad" data-clip="measure">
+          <video muted playsinline loop preload="none" poster="media/band_measure.avif"><source src="media/band_measure.mp4" type="video/mp4"></video>
+          <div class="beat-ph"></div>
+          <button class="sbtn" type="button" aria-label="Play the Measure clip"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 1.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        </div></div>
+        <figcaption><span class="t">Measure</span><p>Angles and distances, read from the face in 3D.</p></figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="gl vidframe"><div class="slotpanel ipad" data-clip="rhinoplasty">
+          <video muted playsinline loop preload="none" poster="media/band_rhino.avif"><source src="media/band_rhino.mp4" type="video/mp4"></video>
+          <div class="beat-ph"></div>
+          <button class="sbtn" type="button" aria-label="Play the Rhinoplasty clip"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 1.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        </div></div>
+        <figcaption><span class="t">Rhinoplasty</span><p>Bridge, tip and base, adjusted step by step, with each move explained.</p></figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="gl vidframe"><div class="slotpanel ipad" data-clip="lift">
+          <video muted playsinline loop preload="none" poster="media/band_lift.avif"><source src="media/band_lift.mp4" type="video/mp4"></video>
+          <div class="beat-ph"></div>
+          <button class="sbtn" type="button" aria-label="Play the Lift clip"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 1.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        </div></div>
+        <figcaption><span class="t">Lift</span><p>Place a lift and watch the change, measured in millimetres.</p></figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="gl vidframe"><div class="slotpanel ipad" data-clip="presentation">
+          <video muted playsinline loop preload="none" poster="media/band_present.avif"><source src="media/band_present.mp4" type="video/mp4"></video>
+          <div class="beat-ph"></div>
+          <button class="sbtn" type="button" aria-label="Play the Presentation clip"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 1.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        </div></div>
+        <figcaption><span class="t">Presentation</span><p>A calm walkthrough for the patient, one change at a time.</p></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
