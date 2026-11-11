@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark light">
+<title>PHAI · Join your surgeon</title>
+<style>
+:root { --ground: #080e12; --card: rgba(214, 246, 255, 0.07); --line: rgba(150, 226, 252, 0.55); --ink: #ffffff;
+--soft: rgba(244, 251, 254, 0.78); --ice: #82d6f8; --button: rgba(130, 214, 248, 0.18); }
+@media (prefers-color-scheme: light) {
+:root { --ground: #eef6f9; --card: rgba(8, 14, 18, 0.04); --line: rgba(24, 110, 150, 0.45); --ink: #0b1a22;
+--soft: rgba(11, 26, 34, 0.72); --ice: #186e96; --button: rgba(24, 110, 150, 0.12); }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--ground); color: var(--ink); }
+body { font-family: -apple-system, system-ui, "Helvetica Neue", Arial, sans-serif; font-weight: 300; letter-spacing: 0.08em;
+min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 16px; }
+main { width: 100%; max-width: 440px; text-align: center; }
+.mark { font-size: 30px; font-weight: 200; letter-spacing: 0.3em; margin: 0 0 6px; }
+.kicker { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft); margin: 0 0 28px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 20px 22px; }
+.code { font-size: 44px; font-weight: 300; letter-spacing: 0.18em; margin: 6px 0 18px; font-variant-numeric: tabular-nums; }
+.label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft); }
+button, a.button { display: block; width: 100%; padding: 15px 18px; border-radius: 14px; border: 1px solid var(--line);
+background: var(--button); color: var(--ink); font: inherit; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase;
+text-decoration: none; cursor: pointer; }
+p { font-size: 15px; line-height: 1.55; color: var(--soft); letter-spacing: 0.03em; margin: 18px 0 0; }
+p strong { color: var(--ink); font-weight: 400; }
+.get { margin-top: 26px; }
+.hidden { display: none !important; }
+footer { margin-top: 30px; font-size: 12px; letter-spacing: 0.12em; }
+footer a { color: var(--soft); }
+</style>
+</head>
+<body>
+<main>
+<div class="mark">PHAI</div>
+<div class="kicker">Join your surgeon</div>
+
+<section class="card" id="withCode">
+<div class="label">Your surgeon's code</div>
+<div class="code" id="code" aria-live="polite"></div>
+<button type="button" id="copy">Copy the code</button>
+<p id="copied" class="hidden"><strong>Copied.</strong></p>
+<p><strong>PHAI is on this phone:</strong> open PHAI and tap "I have a code from my surgeon", then type this code. Already signed in?
+Open your account, then Your surgeons, and add this code.</p>
+</section>
+
+<section class="card hidden" id="noCode">
+<p><strong>This link has no code.</strong> Ask your surgeon for a new one.</p>
+</section>
+
+<div class="get">
+<a class="button hidden" id="getLink" href="#" rel="noreferrer noopener">Get PHAI</a>
+<p id="getNote" class="hidden">Your surgeon sends you the link to install PHAI.</p>
+</div>
+
+<footer><a href="/privacy.html">Privacy</a></footer>
+</main>
+<script>
+// The TestFlight public link (then the App Store link). Empty: the page says the surgeon sends it.
+const GET_PHAI_LINK = "";
+
+(function () {
+var raw = new URLSearchParams(window.location.search).get("code") || "";
+var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
+var nonAscii = /[^\x00-\x7F]/.test(raw);
+if (code.length === 6 && !nonAscii) {
+document.getElementById("code").textContent = code.slice(0, 3) + "-" + code.slice(3);
+document.getElementById("copy").addEventListener("click", function () {
+if (navigator.clipboard) {
+navigator.clipboard.writeText(code).then(function () {
+document.getElementById("copied").classList.remove("hidden");
+});
+}
+});
+} else {
+document.getElementById("withCode").classList.add("hidden");
+document.getElementById("noCode").classList.remove("hidden");
+}
+if (/^https:\/\//.test(GET_PHAI_LINK)) {
+var a = document.getElementById("getLink");
+a.href = GET_PHAI_LINK;
+a.classList.remove("hidden");
+} else {
+document.getElementById("getNote").classList.remove("hidden");
+}
+})();
+</script>
+</body>
+</html>
