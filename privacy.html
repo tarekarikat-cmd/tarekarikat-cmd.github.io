@@ -24,7 +24,7 @@ a { color: var(--accent); }
 </head>
 <body>
 <h1>PHAI Privacy Policy</h1>
-<p class="date">Test version. Last updated: 11 November 2026</p>
+<p class="date">Test version. Last updated: 15 November 2026</p>
 
 <p>PHAI is an app for facial consultations. A patient takes a 3D scan of their face at home and sends it to their own surgeon. The surgeon uses PHAI on an iPad to look at the scan and to show possible changes during a consultation.</p>
 
@@ -38,7 +38,9 @@ a { color: var(--accent); }
 <ul>
 <li><strong>Surgeons</strong> sign in with a username and password made for them by PHAI's maker.</li>
 <li><strong>Patients</strong> join with a code from their surgeon and choose a password. The code is their username. PHAI also keeps the name the patient types when joining, so their surgeon knows who they are.</li>
-<li>PHAI does not ask for an email address or a phone number to make an account.</li>
+<li>If you give PHAI an email address for your account, it is used only to send you a link to choose a new password if you forget yours. It is not shown to your surgeon or clinic, is not kept in our logs, and is deleted with your account.</li>
+<li>If you sign in with Apple or Google, they give PHAI your name and email address, and PHAI keeps them with your account. Apple lets you hide your real email address if you wish.</li>
+<li>PHAI does not ask for a phone number, and uses email addresses only in the ways this page describes.</li>
 <li>A patient is connected only to the surgeons whose codes they used. There is no directory of surgeons or patients.</li>
 </ul>
 
@@ -50,7 +52,7 @@ a { color: var(--accent); }
 <h2>When a patient sends a scan</h2>
 <ul>
 <li>Before the first scan, PHAI asks for your consent, and names the surgeon the scan goes to. PHAI records who agreed, when, and to which wording.</li>
-<li>When you send, you choose the surgeon. The scan goes to that surgeon's practice only, never to another surgeon.</li>
+<li>When you send, you choose the surgeon. The scan goes to that surgeon's practice, never to another surgeon.</li>
 <li>A sent scan includes its photos with their depth and position information, the 3D model, small notes about the capture, and when it was taken and sent.</li>
 <li>Your surgeon's iPad gets a notification that a scan arrived. Notifications pass through Apple and carry no name.</li>
 </ul>
@@ -64,12 +66,22 @@ a { color: var(--accent); }
 <h2>The surgeon's calendar</h2>
 <p>A surgeon can let PHAI add booked consultations to a calendar on their iPad. Each event shows only "Consult", the patient's initials and their PHAI number. If that calendar is one the surgeon keeps with Google, Microsoft or Apple, that company holds the event under its own privacy policy.</p>
 
+<h2>Your next visit</h2>
+<p>If your clinic books a visit and tells you, PHAI shows you its date, time, place and the clinic's name.</p>
+
 <h2>A patient's calendar link</h2>
 <p>A patient can link their own calendar (Apple, Google or Outlook) to the consultations their surgeon booked in PHAI. Each entry shows only "Consultation", the clinic's name and the time. Anyone who has the link can see those entries, so the link is long and impossible to guess, and the patient can switch it off in PHAI at any time, which stops it at once. PHAI never reads the patient's calendars.</p>
+
+<h2>Emails and notifications</h2>
+<ul>
+<li>If your clinic enters your email address, PHAI uses it only to send that clinic's invite or booking, through our email provider (Resend). It is kept on the clinic's record, not in our logs, and is deleted with it.</li>
+<li>Your phone may get notifications from PHAI about bookings and scan requests. They name only the clinic, never a treatment.</li>
+</ul>
 
 <h2>Where it is stored and who can see it</h2>
 <ul>
 <li>PHAI's server is run by Supabase, in Frankfurt, Germany (in the European Union). Files are private, encrypted on the way and when stored, and each download link works only for a few minutes.</li>
+<li>PHAI's emails (a clinic's invite or booking, and links to choose a new password) are sent by Resend, our email provider, in the United States.</li>
 <li>A patient's scans can be seen by that patient and by the surgeons they sent them to. No other surgeon or patient can see them.</li>
 <li>PHAI's maker runs the server and its private control page. The control page can open any record, scans included, only after a second sign-in step, and every opening of a scan is recorded.</li>
 <li>PHAI stores no health information in Apple's iCloud. Earlier test versions of PHAI stored sent scans in iCloud. Those versions keep working until they expire. To have anything from them deleted, email <a href="mailto:support@phai.co">support@phai.co</a>.</li>
@@ -82,8 +94,8 @@ a { color: var(--accent); }
 <li>During the test, photos on your own device are not removed by PHAI.</li>
 </ul>
 
-<h2>Improving where PHAI places its dots</h2>
-<p>PHAI places dots on a face scan, and surgeons sometimes move them. Those corrections may be used to make PHAI's dot placement better, but only for patients who have agreed to this separately. Agreeing is never needed to use PHAI. Any improved version is checked before it is used and released as a fixed version, and PHAI does not learn on your device.</p>
+<h2>Improving PHAI</h2>
+<p>PHAI places dots on a face scan, and surgeons sometimes move them. To make PHAI better, we copy those dot positions and, when needed, the 3D scan itself, including the picture of the skin on it. These copies carry no name and are stored apart from your account. Scans of anyone under 18 are never used. The copies are used only to improve PHAI and are deleted after use, or sooner if you delete the scan or your account. An improved version is checked before it is used and comes as a fixed update; PHAI does not learn on your device.</p>
 
 <h2>Technical logs</h2>
 <p>PHAI keeps a technical record of what the app did, to find and fix problems. Names and email addresses are removed from it before it leaves the device. Apple also shares crash reports and any feedback you send through TestFlight. Apple's own privacy policy covers how Apple handles that information.</p>
@@ -105,7 +117,7 @@ a { color: var(--accent); }
 </ul>
 
 <h2>When the test ends</h2>
-<p>Test accounts and their scans are erased from the test server. Surgeons' practices that take part for real, with the patients who joined them from home, move to PHAI's live system. Dot corrections from patients who agreed to their use are kept. Nothing on anyone's device is changed.</p>
+<p>Test accounts and their scans are erased from the test server. Surgeons' practices that take part for real, with the patients who joined them from home, move to PHAI's live system. No copies used to improve PHAI are kept. Nothing on anyone's device is changed.</p>
 
 <h2>Changes</h2>
 <p>PHAI is in testing, and the way it handles information will change as it develops. When it does, this page and the date at the top are updated.</p>
