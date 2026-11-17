@@ -24,19 +24,20 @@ a { color: var(--accent); }
 </head>
 <body>
 <h1>PHAI Privacy Policy</h1>
-<p class="date">Test version. Last updated: 15 November 2026</p>
+<p class="date">Test version. Last updated: 17 November 2026</p>
 
 <p>PHAI is an app for facial consultations. A patient takes a 3D scan of their face at home and sends it to their own surgeon. The surgeon uses PHAI on an iPad to look at the scan and to show possible changes during a consultation.</p>
 
 <p class="note"><strong>PHAI is not a medical app.</strong> PHAI helps your surgeon explain possible changes, the way a surgeon might use photos or photo-editing software. It does not decide or dictate any medical procedure, and what it shows is not a promise of results. Every decision about treatment is made by you and your surgeon. PHAI provides no health care information.</p>
 
-<p>This policy explains what PHAI handles while it is being tested through Apple's TestFlight, by surgeons and patients who have agreed to take part.</p>
+<p>This policy explains what PHAI handles while it is being tested through Apple's TestFlight, by surgeons, their team members and patients who have agreed to take part.</p>
 
 <p><strong>Who we are.</strong> PHAI is made by Tarek Arikat. Contact: <a href="mailto:support@phai.co">support@phai.co</a>.</p>
 
 <h2>Accounts</h2>
 <ul>
 <li><strong>Surgeons</strong> sign in with a username and password made for them by PHAI's maker.</li>
+<li><strong>Team members</strong> are people a surgeon adds to help in the clinic. A team member's account holds their name, their email address, the practice they work for, and a username PHAI makes from their first name and the clinic's name. PHAI emails them a link to choose their own password. The link works once, for 24 hours, and no password is ever sent by email. Their email address is used only for these links, is not kept in our logs, and is deleted when the surgeon removes them or they delete their account.</li>
 <li><strong>Patients</strong> join with a code from their surgeon and choose a password. The code is their username. PHAI also keeps the name the patient types when joining, so their surgeon knows who they are.</li>
 <li>If you give PHAI an email address for your account, it is used only to send you a link to choose a new password if you forget yours. It is not shown to your surgeon or clinic, is not kept in our logs, and is deleted with your account.</li>
 <li>If you sign in with Apple or Google, they give PHAI your name and email address, and PHAI keeps them with your account. Apple lets you hide your real email address if you wish.</li>
@@ -58,7 +59,19 @@ a { color: var(--accent); }
 </ul>
 
 <h2>Scans taken in the clinic</h2>
-<p>When a surgeon scans a patient in the clinic, the surgeon confirms the patient agreed. The photos of a clinic scan stay on the surgeon's iPad and are not sent to PHAI's server.</p>
+<p>When a surgeon scans a patient in the clinic, the surgeon confirms the patient agreed. The photos of a scan the surgeon takes stay on the surgeon's iPad and are not sent to PHAI's server. Scans taken by the surgeon's team are explained in the next section.</p>
+
+<h2>A surgeon's team</h2>
+<p>A surgeon can add members of their clinic team. Team members use PHAI on their own iPhone, for that surgeon's practice only.</p>
+<ul>
+<li><strong>What they can see.</strong> Every team member can see the practice's patient list (each patient's name and PHAI number), its booked visits, and its scans with their photos and 3D models, so they can check that a scan is usable. They never see the surgeon's plans, notes or simulations, or the dots on a face scan. The surgeon chooses, for each team member, whether they can also book and change visits, send invites, and delete what they added.</li>
+<li><strong>Scans they take.</strong> Before a scan, the team member confirms that the patient agreed, and PHAI records who confirmed it. For a patient under 18, a parent or guardian agrees as well. The scan and its photos go to the surgeon's practice on PHAI's server, and from there into the patient's folder on the surgeon's iPad, marked with who took it. PHAI then removes them from the iPhone. On the server they are kept like a scan a patient sends, and the photos are removed on the same schedule.</li>
+<li><strong>On their iPhone.</strong> Photos and 3D models a team member opens are removed from the iPhone when they sign out or are removed from the team.</li>
+<li><strong>Who did what.</strong> PHAI records what each team member does (folders, scans, visits, invites and deletions), and shows the surgeon who added each item. The surgeon also sees when each team member last used PHAI and what they last did. Messages to a patient about their visits always come in the surgeon's name.</li>
+<li><strong>Notifications.</strong> The surgeon's iPad is told when a team member adds a scan or a folder, or deletes something. These notifications pass through Apple and name the team member, never the patient.</li>
+<li><strong>The patient list.</strong> So that team members can find the right patient, PHAI's server keeps the practice's patient list, with only each patient's name and PHAI number. An entry is deleted with the patient's folder.</li>
+<li><strong>Leaving the team.</strong> The surgeon can remove a team member at any time. Their sign-ins end at once and their email address is deleted. A scan already on its way may still reach the surgeon. Their account, with their name and username, is deleted 24 hours later, and their name stays on what they added. A team member can also delete their own account in the app: it is deleted at once, with their email address, and what they added stays with the practice, with their name on it.</li>
+</ul>
 
 <h2>The surgeon's back-up</h2>
 <p>So that a surgeon's work isn't lost with an iPad, PHAI keeps a copy of it in the surgeon's practice space on PHAI's server: the 3D models, the first photo of each scan, and the surgeon's plans and notes. It comes back when the surgeon signs in on another iPad. Only that practice can read it.</p>
@@ -81,8 +94,8 @@ a { color: var(--accent); }
 <h2>Where it is stored and who can see it</h2>
 <ul>
 <li>PHAI's server is run by Supabase, in Frankfurt, Germany (in the European Union). Files are private, encrypted on the way and when stored, and each download link works only for a few minutes.</li>
-<li>PHAI's emails (a clinic's invite or booking, and links to choose a new password) are sent by Resend, our email provider, in the United States.</li>
-<li>A patient's scans can be seen by that patient and by the surgeons they sent them to. No other surgeon or patient can see them.</li>
+<li>PHAI's emails (a clinic's invite or booking, and links to choose a password) are sent by Resend, our email provider, in the United States.</li>
+<li>A patient's scans can be seen by that patient, by the surgeons they sent them to, and by those surgeons' team members. No other surgeon, team member or patient can see them.</li>
 <li>PHAI's maker runs the server and its private control page. The control page can open any record, scans included, only after a second sign-in step, and every opening of a scan is recorded.</li>
 <li>PHAI stores no health information in Apple's iCloud. Earlier test versions of PHAI stored sent scans in iCloud. Those versions keep working until they expire. To have anything from them deleted, email <a href="mailto:support@phai.co">support@phai.co</a>.</li>
 </ul>
