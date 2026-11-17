@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'sha256-LIdUIlZdZRQiACZQF7oIvKPOJO1RyTf9vi29xLo75OM='; script-src 'sha256-I6pLrcexTO8nmrmqRvhLPaaiBbGarAN/YsGcXxSQXd4='; img-src 'none'; connect-src https://ikoqahfdcbmvoysdyjuw.supabase.co https://jdaxuhodzjlqhibgojkc.supabase.co; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark light">
+<title>PHAI · Choose your password</title>
+<style>
+:root { --ground: #080e12; --card: rgba(214, 246, 255, 0.07); --line: rgba(150, 226, 252, 0.55); --ink: #ffffff;
+--soft: rgba(244, 251, 254, 0.78); --ice: #82d6f8; --button: rgba(130, 214, 248, 0.18); --field: rgba(4, 9, 12, 0.6); --warn: #ffb4a8; }
+@media (prefers-color-scheme: light) {
+:root { --ground: #eef6f9; --card: rgba(8, 14, 18, 0.04); --line: rgba(24, 110, 150, 0.45); --ink: #0b1a22;
+--soft: rgba(11, 26, 34, 0.72); --ice: #186e96; --button: rgba(24, 110, 150, 0.12); --field: #ffffff; --warn: #a3301d; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--ground); color: var(--ink); }
+body { font-family: -apple-system, system-ui, "Helvetica Neue", Arial, sans-serif; font-weight: 300; letter-spacing: 0.08em;
+min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 16px; }
+main { width: 100%; max-width: 440px; text-align: center; }
+.mark { font-size: 30px; font-weight: 200; letter-spacing: 0.3em; margin: 0 0 6px; }
+.kicker { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft); margin: 0 0 28px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 20px 22px; }
+.card.form { text-align: left; }
+.label { display: block; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft); margin: 20px 0 8px; }
+.pw { display: block; width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--field);
+color: var(--ink); font: inherit; font-size: 17px; font-weight: 400; letter-spacing: 0.04em; }
+.show { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 14px; letter-spacing: 0.03em; color: var(--soft); cursor: pointer; }
+.show input { width: 20px; height: 20px; margin: 0; accent-color: var(--ice); }
+button { display: block; width: 100%; margin-top: 22px; padding: 15px 18px; border-radius: 14px; border: 1px solid var(--line);
+background: var(--button); color: var(--ink); font: inherit; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; }
+button[disabled] { opacity: 0.55; cursor: default; }
+.pw:focus-visible, button:focus-visible, .show input:focus-visible { outline: 2px solid var(--ice); outline-offset: 2px; }
+p { font-size: 15px; line-height: 1.55; color: var(--soft); letter-spacing: 0.03em; margin: 14px 0 0; }
+p strong { color: var(--ink); font-weight: 400; }
+.intro, .card > p:first-child { margin: 0; }
+.rule { font-size: 14px; }
+.msg { color: var(--warn); }
+.msg:empty, .status:empty { display: none; }
+.big { font-size: 20px; line-height: 1.35; margin: 0; letter-spacing: 0.04em; color: var(--ink); }
+.big:focus { outline: none; }
+.hidden { display: none !important; }
+footer { margin-top: 30px; font-size: 12px; letter-spacing: 0.12em; }
+footer a { color: var(--soft); }
+</style>
+</head>
+<body>
+<main>
+<div class="mark">PHAI</div>
+<div class="kicker">Choose your password</div>
+
+<section class="card form hidden" id="formCard">
+<form id="form" novalidate>
+<p class="intro">Choose a password for your PHAI account.</p>
+<label class="label" for="pw1">New password</label>
+<input class="pw" id="pw1" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="rule">
+<label class="label" for="pw2">The same password again</label>
+<input class="pw" id="pw2" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false">
+<label class="show"><input type="checkbox" id="show"> Show the password</label>
+<p class="rule" id="rule">At least 10 characters. It can't be your username.</p>
+<p class="msg" id="msg" role="alert"></p>
+<button type="submit" id="go">Set my password</button>
+<p class="status" id="status" aria-live="polite"></p>
+</form>
+</section>
+
+<section class="card hidden" id="doneCard">
+<p class="big" id="doneTitle" tabindex="-1">Password set.</p>
+<p>Open PHAI and sign in with your username.</p>
+</section>
+
+<section class="card hidden" id="stopCard">
+<p class="big" id="stopTitle" tabindex="-1"></p>
+<p id="stopText"></p>
+<p id="stopNew" class="hidden">To get a new link, ask your practice, or use "Forgot password?" in the PHAI app.</p>
+</section>
+
+<noscript><section class="card"><p>This page needs JavaScript. Please turn it on, then tap the link in your email again.</p></section></noscript>
+
+<footer><a href="/privacy.html">Privacy</a></footer>
+</main>
+<script>
+(function () {
+"use strict";
+// The two servers are built in; a link only says which one (s=test), never an address.
+var SERVERS = { test: "https://ikoqahfdcbmvoysdyjuw.supabase.co", live: "https://jdaxuhodzjlqhibgojkc.supabase.co" };
+var WORDS = {
+empty: "Please type your new password in both boxes.",
+mismatch: "The two passwords aren't the same. Please type them again.",
+short: "Please use at least 10 characters.",
+long: "That password is too long. Please choose a shorter one.",
+same: "Your password can't be your username. Please choose another one.",
+tries: "Too many tries from this network. Please wait an hour, then try again.",
+failed: "Something went wrong on our side. Nothing was changed and your link still works, so please try again.",
+later: "PHAI isn't answering right now. Please try again later.",
+offline: "PHAI can't be reached right now. Check your internet connection and try again.",
+other: "Something went wrong. Please try again.",
+busy: "Setting your password…"
+};
+var STOPS = {
+nolink: ["Open the link in your email.", "This page needs the link from your PHAI email. Tap the link in the email again.", false],
+unknown: ["This link isn't complete.", "Open it again from your email. If that doesn't work, ask for a new link.", true],
+used: ["This link has already been used.", "If you set your password with it, open PHAI and sign in with your username.", true],
+expired: ["This link has expired.", "A link works for one hour, and only the newest link works.", true]
+};
+function $(id) { return document.getElementById(id); }
+
+// Read t and s from the part after #. That part never leaves this phone; take it out of the address bar at once.
+var raw = window.location.hash.replace(/^#/, "");
+var token = "", which = "live";
+raw.split("&").forEach(function (part) {
+var i = part.indexOf("=");
+if (i < 1) { return; }
+var k = part.slice(0, i), v = part.slice(i + 1);
+try { v = decodeURIComponent(v); } catch (e) { v = ""; }
+if (k === "t") { token = v; }
+if (k === "s" && v.toLowerCase() === "test") { which = "test"; }
+});
+if (raw && window.history && window.history.replaceState) {
+window.history.replaceState(null, "", window.location.pathname);
+}
+
+function show(id) { $(id).classList.remove("hidden"); }
+function hide(id) { $(id).classList.add("hidden"); }
+function clearFields() { $("pw1").value = ""; $("pw2").value = ""; }
+function stop(kind) {
+token = ""; clearFields(); hide("formCard");
+$("stopTitle").textContent = STOPS[kind][0];
+$("stopText").textContent = STOPS[kind][1];
+if (STOPS[kind][2]) { show("stopNew"); } else { hide("stopNew"); }
+show("stopCard"); $("stopTitle").focus();
+}
+function done() {
+token = ""; clearFields(); hide("formCard"); show("doneCard"); $("doneTitle").focus();
+}
+function say(text, field) {
+$("msg").textContent = text;
+if (field) { $(field).focus(); }
+}
+
+if (!raw) { stop("nolink"); return; }
+if (!/^[\x21-\x7e]{20,1024}$/.test(token)) { stop("unknown"); return; }
+show("formCard");
+
+$("show").addEventListener("change", function () {
+var type = $("show").checked ? "text" : "password";
+$("pw1").type = type; $("pw2").type = type;
+});
+
+function problem(a, b) {
+if (!a || !b) { return [WORDS.empty, a ? "pw2" : "pw1"]; }
+if (a !== b) { return [WORDS.mismatch, "pw2"]; }
+if (Array.from(a).length < 10) { return [WORDS.short, "pw1"]; }
+if (new TextEncoder().encode(a).length > 72) { return [WORDS.long, "pw1"]; }
+return null;
+}
+
+function answer(word, status) {
+if (word === "link_used") { stop("used"); }
+else if (word === "link_expired") { stop("expired"); }
+else if (word === "link_unknown" || word === "details_refused") { stop("unknown"); }
+else if (word === "password_too_short") { say(WORDS.short, "pw1"); }
+else if (word === "password_too_long") { say(WORDS.long, "pw1"); }
+else if (word === "password_same") { say(WORDS.same, "pw1"); }
+else if (word === "too_many_tries" || status === 429) { say(WORDS.tries); }
+else if (word === "reset_failed") { say(WORDS.failed); }
+else if (status >= 500) { say(WORDS.later); }
+else if (word === "offline") { say(WORDS.offline); }
+else { say(WORDS.other); }
+}
+
+var busy = false;
+$("form").addEventListener("submit", function (ev) {
+ev.preventDefault();
+if (busy || !token) { return; }
+var a = $("pw1").value, b = $("pw2").value;
+var p = problem(a, b);
+if (p) { say(p[0], p[1]); return; }
+var server = SERVERS[which];
+busy = true; $("go").disabled = true; say(""); $("status").textContent = WORDS.busy;
+var ctl = window.AbortController ? new AbortController() : null;
+var timer = setTimeout(function () { if (ctl) { ctl.abort(); } }, 25000);
+var finish = function () { clearTimeout(timer); busy = false; $("go").disabled = false; $("status").textContent = ""; };
+fetch(server + "/functions/v1/reset-with-link", {
+method: "POST", mode: "cors", credentials: "omit", cache: "no-store", referrerPolicy: "no-referrer",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({ token: token, new_password: a }),
+signal: ctl ? ctl.signal : undefined
+}).then(function (res) {
+return res.text().then(function (text) {
+var body = {};
+try { body = JSON.parse(text) || {}; } catch (e) { body = {}; }
+return { status: res.status, body: body };
+});
+}).then(function (r) {
+finish();
+if (r.status === 200 && r.body.ok === true) { done(); return; }
+answer(String(r.body.error || r.body.message || ""), r.status);
+}, function () {
+finish();
+answer("offline", 0);
+});
+});
+})();
+</script>
+</body>
+</html>
